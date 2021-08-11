@@ -1,93 +1,103 @@
 apiVersion: v1
 entries:
-  e2g:
+  crowd:
   - annotations:
       artifacthub.io/changes: |
-        - "[Added]: README Documentation"
+        - "[Added]: Chart Release"
       artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/images: "- name: e2g-5 \n  image: bedag/e2g:5\n- name: e2g-4
-        \n  image: bedag/e2g:4\n"
+      artifacthub.io/images: |
+        - name: crowd
+          image: atlassian/crowd:4.2.3
       artifacthub.io/prerelease: "false"
     apiVersion: v2
-    appVersion: 5.3.4
-    created: "2021-02-22T19:12:24.47541322Z"
+    appVersion: 4.2.3
+    created: "2021-08-11T14:50:58.604251963Z"
+    dependencies:
+    - name: manifests
+      repository: file://../manifests
+      version: ~0.6.0
+    description: Manage users from multiple directories - Active Directory, LDAP,
+      OpenLDAP or Microsoft Azure AD - and control application authentication permissions
+      in one single location
+    digest: f49e6f871f3c0f3d212d2e192ac50a30b4a0f3e09429441c195cf261e68fca3b
+    home: https://www.atlassian.com/software/crowd
+    icon: https://media.trustradius.com/product-logos/CP/PJ/9AQZ6ALXTFKJ-180x180.PNG
+    keywords:
+    - atlassian
+    - crowd
+    - data center
+    maintainers:
+    - email: sre@bedag.ch
+      name: SRE
+    name: crowd
+    sources:
+    - https://hub.docker.com/r/atlassian/crowd
+    type: application
+    urls:
+    - https://github.com/buttahtoast/helm-charts-1/releases/download/crowd-0.4.0/crowd-0.4.0.tgz
+    version: 0.4.0
+  kafdrop:
+  - annotations:
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |
+        - name: kafdrop
+          image: obsidiandynamics/kafdrop:3.27.0
+      artifacthub.io/prerelease: "false"
+    apiVersion: v2
+    appVersion: 3.27.0
+    created: "2021-08-11T14:50:58.741832624Z"
     dependencies:
     - name: manifests
       repository: https://bedag.github.io/helm-charts/
-      version: '>=0.4.0'
-    description: e2guardian Chart
-    digest: 977a79673a9888da6890cc4fed8bffdbb44ceb48523e53106fe6ef9785ab63d5
-    home: https://github.com/e2guardian/e2guardian/
+      version: ~0.5.0
+    description: Unofficial Helm Chart for Kafdrop
+    digest: 659af519b6bf0a9ad2e53acb1663df37b73464471a1d0ed88e92eb5d910d783b
+    home: https://github.com/obsidiandynamics/kafdrop
+    icon: https://raw.githubusercontent.com/wiki/obsidiandynamics/kafdrop/images/kafdrop-logo.png
     keywords:
-    - proxy
-    - forwardproxy
-    - e2guardian
-    - e2g
+    - Apache Kafka
+    - Kafdrop
+    - Browsing
     maintainers:
-    - email: noc@bedag.ch
-      name: NOC
     - email: sre@bedag.ch
       name: SRE
-    name: e2g
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/e2g
-    - https://github.com/e2guardian/e2guardian/
-    - https://github.com/bedag/docker-e2g
+    name: kafdrop
     type: application
     urls:
-    - https://github.com/bedag/helm-charts/releases/download/e2g-1.0.1/e2g-1.0.1.tgz
-    version: 1.0.1
-  - annotations:
-      artifacthub.io/changes: |
-        - [Added]: init
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/images: "- name: e2g-5 \n  image: bedag/e2g:5\n- name: e2g-4
-        \n  image: bedag/e2g:4\n"
-      artifacthub.io/prerelease: "false"
-    apiVersion: v2
-    appVersion: 5.3.4
-    created: "2021-02-22T17:46:04.569321115Z"
-    dependencies:
-    - name: manifests
-      repository: https://bedag.github.io/helm-charts/
-      version: '>=0.4.0'
-    description: e2guardian Chart
-    digest: 16213d5b8b64dc75006db16adcd26abe2354eea288944cb410aae3aa354d2e85
-    home: https://github.com/e2guardian/e2guardian/
-    keywords:
-    - proxy
-    - forwardproxy
-    - e2guardian
-    - e2g
-    maintainers:
-    - email: noc@bedag.ch
-      name: NOC
-    - email: sre@bedag.ch
-      name: SRE
-    name: e2g
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/e2g
-    - https://github.com/e2guardian/e2guardian/
-    - https://github.com/bedag/docker-e2g
-    type: application
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/e2g-1.0.0/e2g-1.0.0.tgz
-    version: 1.0.0
+    - https://github.com/buttahtoast/helm-charts-1/releases/download/kafdrop-0.2.3/kafdrop-0.2.3.tgz
+    version: 0.2.3
   manifests:
   - annotations:
-      artifacthub.io/changes: |
-        - "[Changed]: Updated Documentation"
+      artifacthub.io/changes: "- \"[Added]: [template/container] - Image Digest Support
+        via digest field\"\n- \"[Added]: [template/container] - New Fields `.readinessProbeEnabled`,
+        `.livenessProbeEnabled` & `.startupProbeEnabled`. The fields allow to disable
+        the named probes through values.\"\n- \"[Added]: [manifest/*] - Added Namespace
+        field for all manifests\"\n- \"Breaking! [Changed]: [template/job] - `.labels`
+        moved to `.jobLabels\"\n- \"Breaking! [Changed]: [template/job] - `.annotations`
+        moved to `.jobAnnotations\"\n- \"Breaking! [Changed]: [template/job] - `.selector`
+        moved to `.jobSelector\"\n- \"Breaking! [Changed]: [manifest/serviceMonitor]
+        - `.additionalFields` moved to `.serviceMonitorFields\"\n- \"Breaking! [Changed]:
+        [manifest/podDisruptionBudget] - `.selector` moved to `.selectorLabels`\"\n-
+        \"Breaking! [Changed]: [manifest/serviceMonitor] - `.selector` moved to `.selectorLabels`\"
+        \n- \"Breaking! [Changed]: [manifest/statefulset] - `.selector` moved to `.selectorLabels`\"
+        \n- \"Breaking! [Changed]: [manifest/statefulset] - `.statefulsetExtras` moved
+        to `.statefulsetFields`\"     \n- \"Breaking! [Changed]: [manifest/ingress]
+        - `.customRules` moved to `.extraRules`\"\n- \"[Fixed]: [manifest/statefulset]
+        - `.replicaCount` no longer defaults to 1, when set to 0\"\n- \"[Fixed]: [manifest/deployment]
+        - `.replicaCount` no longer defaults to 1, when set to 0\"\n- \"[Fixed]: [manifest/ingress]
+        - `.customRules` renders when content is of type slice\"\n- \"[Removed]: [manifest/networkPolicy]
+        - networkPolicies no longer supported as Manifest\""
       artifacthub.io/containsSecurityUpdates: "false"
       artifacthub.io/license: Apache-2.0
       artifacthub.io/prerelease: "false"
     apiVersion: v2
-    created: "2021-02-22T17:39:42.709277872Z"
+    created: "2021-08-11T14:50:58.877696952Z"
     dependencies:
     - name: library
       repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
+      version: ~1.2.0
     description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 505a466a07f25da6763cddcdc7068f450396cf2d924bd68b7d3a2e5759b4daf9
+    digest: 72c655d2f74ee79cb44a9e26cdda79d5f4f2c7572b99f7614a95bae24dfbf7c9
     icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
     keywords:
     - Bedag
@@ -101,627 +111,25 @@ entries:
     - https://github.com/bedag/helm-charts/tree/master/charts/manifests
     type: library
     urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.5.3/manifests-0.5.3.tgz
-    version: 0.5.3
-  - annotations:
-      artifacthub.io/changes: |
-        - "[Fixed]: Add Overwrites to Bundle Extras"
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "false"
-    apiVersion: v2
-    created: "2021-02-22T14:40:00.086060569Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: de8f09fb15ed372df5d994705398f1dd3c381bfe20ddd86b572d93dad38e6367
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.5.2/manifests-0.5.2.tgz
-    version: 0.5.2
-  - annotations:
-      artifacthub.io/changes: |
-        - "[Fixed]: Add Overwrites to Bundle Extras"
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "false"
-    apiVersion: v2
-    created: "2021-02-11T09:56:40.267508888Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 01540960d018bcf03db70cc5abb8a85d3e970f6c17633e53bcc2aa3d72b27659
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.5.1/manifests-0.5.1.tgz
-    version: 0.5.1
-  - annotations:
-      artifacthub.io/changes: |
-        - "[Added]: Support explicit chart.bundle template, for easier bundle declartion including documentation."
-        - "[Added]: Check were possible relevant YAML if it has any .Error field. Throw fail if detected."
-        - "[Changed]: Improved/Changed documentation with changed functionality/workflow."
-        - "[Fixed]: Handle empty Bundle Context causing Problems with Helm 3.5 (Function returned wrongly rendered YAML)"
-        - "[Removed]: Removed dedicated Values function for each manifest instead calling directly within the manifest"
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "false"
-    apiVersion: v2
-    created: "2021-02-10T11:28:15.402125354Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 7b89a280203baefca928df0c3f408d9dc45be2a99825df4f6436a783b9ecd9ab
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.5.0/manifests-0.5.0.tgz
-    version: 0.5.0
-  - annotations:
-      artifacthub.io/changes: |
-        - add newlines to prevent parse errors
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-26T11:45:14.160378245Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 6a6a8002c56b1ee18c74d8bccb8e3abe95f7b7ae35bffe6ab6e26348fe8b4a11
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.11/manifests-0.4.11.tgz
-    version: 0.4.11
-  - annotations:
-      artifacthub.io/changes: |
-        - "[Fixed]: Pod missing name in metadata"
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-25T16:13:08.713343761Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 732c5480108162241a9ceabc36545e14ea4d5aee2ee27295add99d2baf9e08db
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.10/manifests-0.4.10.tgz
-    version: 0.4.10
-  - annotations:
-      artifacthub.io/changes: |
-        - "[Fixed]: Pod twice kind declration & nindent"
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-25T15:14:47.136154747Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: cc59c0aa6886d557b6f738c1e73dd47d023c3cf3b0d02aa814b8bf24ef0d06e1
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.9/manifests-0.4.9.tgz
-    version: 0.4.9
-  - annotations:
-      artifacthub.io/changes: |
-        - Fixes Deployment inheritance
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-24T16:10:22.851287968Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 7fe6f25527a88a50809e613cdf022a617c3cc96b6d41b67b50e321735f9621b5
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.8/manifests-0.4.8.tgz
-    version: 0.4.8
-  - annotations:
-      artifacthub.io/changes: |
-        - [Fixes] Ingress port name/number validation
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-23T09:28:45.862220475Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 305a60395077a7f5df0cdb0bd47040fd8f0254705017996f3be37f551c0dcadd
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.7/manifests-0.4.7.tgz
-    version: 0.4.7
-  - annotations:
-      artifacthub.io/changes: |
-        - Quote Cronjob Schedule
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-22T13:27:58.832770948Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: ecf2d7fb0c3c2c6bb097fca46df0f64ae4ff3e0ba7b04e750d081f26a78b4912
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.6/manifests-0.4.6.tgz
-    version: 0.4.6
-  - annotations:
-      artifacthub.io/changes: |
-        - **[Fixes]**: Bundle Extras allowed for all resources within bundle
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-20T14:40:32.721510958Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: f857d7a196c8a098f4a9e1c53ad7a8f85102b846d605210cc8df4c7b03b935ca
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.5/manifests-0.4.5.tgz
-    version: 0.4.5
-  - annotations:
-      artifacthub.io/changes: |
-        * **[Fixed]**: Cronjob render correct manifest structure
-        * **[Fixed]**: Cronjob use Default API `batch/v1beta1`
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-18T17:18:36.874297446Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 0674984a6493047e207e304e12d50574425bef2c57e96bfcec3c13f9a4901b55
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.4/manifests-0.4.4.tgz
-    version: 0.4.4
-  - annotations:
-      artifacthub.io/changes: |
-        **Added:**
-          * None
-        **Changed:**
-          * Dependency `library` latest version
-        **Deprecated:**
-          * None
-        **Removed:**
-          * None
-        **Fixed:**
-          * [manifest/horizontalPodAutoscaler]: Metrics must be set for manifest to be returned
-        **Security:**
-          * None
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-15T01:04:38.64909425Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: c63d7cd5bd6a653b091cc65d60ed0e4aad425ef99b9983970ce0b18c920ef92c
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.3/manifests-0.4.3.tgz
-    version: 0.4.3
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-14T10:04:09.399272479Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: fe40839d917b02a549a68732bc642e5e31f07171bf4327ee0405704d85e132a1
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.2/manifests-0.4.2.tgz
-    version: 0.4.2
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-11T14:14:15.833518532Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 2fb248b4df69e5c46d751f6000f1a68ceeb720d5fe7b251cd6d3b325b8361dba
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: oliver.baehler@bedag.ch
-      name: oliverbaehler
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.1/manifests-0.4.1.tgz
-    version: 0.4.1
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-11T00:22:11.089862154Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 100015ae5b02b61cc2f6db4ba0bd4a630ff93554b8df001b98471bc916f7fbcf
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: oliver.baehler@bedag.ch
-      name: oliverbaehler
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.4.0/manifests-0.4.0.tgz
-    version: 0.4.0
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-08T16:44:48.351716336Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 42bf3d13973642268bb52b4b7260ae13f2a0dffb35ef18a163b6dbedc3685603
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: oliver.baehler@bedag.ch
-      name: oliverbaehler
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.3.0/manifests-0.3.0.tgz
-    version: 0.3.0
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2021-01-05T10:17:09.834505376Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 6f19a86f4421dc26f466eae5cc52cc4c4c79d72dc73b1356fb7dda32ccf12522
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: oliver.baehler@bedag.ch
-      name: oliverbaehler
-    - email: sre@bedag.ch
-      name: SRE
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.2.0/manifests-0.2.0.tgz
-    version: 0.2.0
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2020-12-24T15:08:20.625324553Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: 0.2.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 651d06cfcd6d21e12a2cf4d36da1705b92961398491236de9a5bec5ff977cee3
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: oliver.baehler@bedag.ch
-      name: oliverbaehler
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.1.2/manifests-0.1.2.tgz
-    version: 0.1.2
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2020-12-21T09:16:41.267835307Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: 0.2.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: e4948a62929791fea5bddc0d2edbda4645bb547c704292c757f3573d7cfa88f0
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: oliver.baehler@bedag.ch
-      name: oliverbaehler
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.1.1/manifests-0.1.1.tgz
-    version: 0.1.1
-  - annotations:
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "true"
-    apiVersion: v2
-    created: "2020-12-17T16:10:46.756419811Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: 0.2.0
-    description: Bedag's Manifest chart. Library full of basic kubernetes manifests.
-    digest: 681b0e7b36824f9cf5053d3756a8738d68d01a5d163c03f9950df2510cf5eb04
-    keywords:
-    - Bedag
-    - Manifests
-    - Library
-    maintainers:
-    - email: oliver.baehler@bedag.ch
-      name: oliverbaehler
-    name: manifests
-    type: library
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/manifests-0.1.0/manifests-0.1.0.tgz
-    version: 0.1.0
-  raw:
-  - annotations:
-      artifacthub.io/changes: |
-        - "[Changed]: Don't merge templates with base (allows multiple items returned from template)"
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "false"
-    apiVersion: v2
-    appVersion: 1.0.0
-    created: "2021-03-19T16:01:56.724209987Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Render raw kubernetes manifests managed by a helm release
-    digest: 67afbde9c135ef9997ab52ed03eb7433aaed0d43f79c6e80c1975962298651cf
-    home: https://github.com/bedag/helm-charts/tree/master/charts/raw
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - raw
-    - templates
-    - resources
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: raw
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/raw
-    type: application
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/raw-1.1.0/raw-1.1.0.tgz
-    version: 1.1.0
-  - annotations:
-      artifacthub.io/changes: |
-        - "[Added]: Chart Initialization"
-      artifacthub.io/containsSecurityUpdates: "false"
-      artifacthub.io/prerelease: "false"
-    apiVersion: v2
-    appVersion: 1.0.0
-    created: "2021-03-15T22:38:22.61579851Z"
-    dependencies:
-    - name: library
-      repository: https://buttahtoast.github.io/helm-charts/
-      version: ~0.3.0
-    description: Render raw kubernetes manifests managed by a helm release
-    digest: 730fb18435abbb1bbc5ed54bc42123bdaeea6227f1b3dc4b838154590626273b
-    home: https://github.com/bedag/helm-charts/tree/master/charts/raw
-    icon: https://www.bedag.ch/wGlobal/wGlobal/layout/images/logo.svg
-    keywords:
-    - raw
-    - templates
-    - resources
-    maintainers:
-    - email: sre@bedag.ch
-      name: SRE
-    name: raw
-    sources:
-    - https://github.com/bedag/helm-charts/tree/master/charts/raw
-    type: application
-    urls:
-    - https://github.com/bedag/helm-charts/releases/download/raw-1.0.0/raw-1.0.0.tgz
+    - https://github.com/buttahtoast/helm-charts-1/releases/download/manifests-1.0.0/manifests-1.0.0.tgz
     version: 1.0.0
-generated: "2021-03-19T16:01:56.724327187Z"
+  manifests-testing:
+  - apiVersion: v2
+    appVersion: 0.0.0
+    created: "2021-08-11T14:50:59.019622793Z"
+    dependencies:
+    - name: manifests
+      repository: file://../manifests/
+      version: '>=0.0.0'
+    description: Pure Unit Testing for the Bedag Manifests Chart
+    digest: 086e6c06f5085fa870b36b27d8cfd5f586f3122660a56bd5da487d458498857a
+    home: none
+    maintainers:
+    - email: sre@bedag.ch
+      name: SRE
+    name: manifests-testing
+    type: application
+    urls:
+    - https://github.com/buttahtoast/helm-charts-1/releases/download/manifests-testing-1.0.0/manifests-testing-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-08-11T14:50:59.019627193Z"
