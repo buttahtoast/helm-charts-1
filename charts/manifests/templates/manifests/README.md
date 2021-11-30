@@ -12,16 +12,6 @@ Don't forget to take a look at Presets as well:
 
   * **[Presets](../presets/README.md)**
 
-# Overview 
-
-
-
-## Name Inheritance
-
-
-
-
-
 # Bundles
 
 We recommend using Bundles. A Bundle describes a list of resources you want to render together your chart. This allows you to implement resource Grouping within your Helm Chart. A bundle returns a kubernetes list with all the given resources rendered, which then can be applied to the kubernetes API. Each chart can have n amount of bundles. This construct was designed to improve code visibility.
@@ -236,50 +226,6 @@ Currently we support the following Kubernetes Manifests:
   * **[Statefulset](#statefulset)**
 
 
-## Configmap
-
-This Template returns a [Configmap](https://kubernetes.io/docs/concepts/configuration/configmap/) Kubernetes Manifest.
-
-### Arguments
-
-The following arguments are supported for this template. If a required argument is not given, the template will fail or return empty.
-
-  * `.values` - Supported key structure for this manifest (See below). Will be merged over the default values for this manifest (Optional).
-  * `.overwrites` - Supported key structure overwriting the structure given to `.values` (Optional).
-  * `.name` - Partial name for the manifest.
-  * `.fullname` - Full name for the manifest.
-  * `.prefix` - Prefix which is always prepended to the name or fullname  
-  * `.context` - Inherited Root Context (Required)
-
-### [Values](../values/manifests/_configmap.yaml)
-
-You can access the supported values for this kubernetes manifest through clicking on values. These values represent the default values for this manifest.
-
-### Templates
-
-Does not implement any templates.
-
-### Usage
-
-```
-{{ include "bedag-lib.manifest.configmap" (dict "values" $.Values.cm "fullname" "custom-cm" "context" $) }}
-```
-
-#### With Bundle
-
-Supported values for type to get the cronjob manifest via bundle are `configmap` or `cm`:
-
-```
-resources:
-  ...
-  - type: "configmap"
-    values: {{ toYaml $.Values.cm | nindent 6 }}
-    fullname: "custom-cm"
-  ...
-```
-
-
-
 ## Cronjob
 
 This Template returns a [Cronjob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) Kubernetes Manifest.
@@ -312,8 +258,6 @@ Implements the following templates:
 ```
 
 #### With Bundle
-
-Supported values for type to get the cronjob manifest via bundle are `cronjob`, `cron` or `cj`:
 
 ```
 resources:
@@ -357,8 +301,6 @@ Implements the following templates:
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `daemonset`, `daemon` or `ds`:
-
 ```
 resources:
   ...
@@ -401,8 +343,6 @@ Implements the following templates:
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `deployment` or `deploy`:
-
 ```
 resources:
   ...
@@ -443,8 +383,6 @@ Does not implement any templates.
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `horizontalpodautoscaler` or `hpa`:
-
 ```
 resources:
   ...
@@ -484,8 +422,6 @@ Does not implement any templates.
 ```
 
 #### With Bundle
-
-Supported values for type to get the cronjob manifest via bundle are `ingress` or `ing`:
 
 ```
 resources:
@@ -529,8 +465,6 @@ Implements the following templates:
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `job`:
-
 ```
 resources:
   ...
@@ -572,8 +506,6 @@ Implements the following templates:
 ```
 
 #### With Bundle
-
-Supported values for type to get the cronjob manifest via bundle are `persistentvolumeclaim` or `pvc`:
 
 ```
 resources:
@@ -617,8 +549,6 @@ Implements the following templates:
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `pod`:
-
 ```
 resources:
   ...
@@ -658,8 +588,6 @@ Does not implement any templates.
 ```
 
 #### With Bundle
-
-Supported values for type to get the cronjob manifest via bundle are `poddisruptionbudget` or `pdb`:
 
 ```
 resources:
@@ -701,8 +629,6 @@ Does not implement any templates.
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `service` or `svc`:
-
 ```
 resources:
   ...
@@ -743,8 +669,6 @@ Does not implement any templates.
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `serviceaccount` or `sa`:
-
 ```
 resources:
   ...
@@ -784,8 +708,6 @@ Does not implement any templates.
 ```
 
 #### With Bundle
-
-Supported values for type to get the cronjob manifest via bundle are `servicemonitor` or `sm`:
 
 ```
 resources:
@@ -829,8 +751,6 @@ Implements the following templates:
 
 #### With Bundle
 
-Supported values for type to get the cronjob manifest via bundle are `statefulset` or `sts`:
-
 ```
 resources:
   ...
@@ -869,7 +789,7 @@ Does not implement any templates.
 ### Usage
 
 ```
-{{ include "bedag-lib.template.container" (set (set $ "container" $.Values.extraContainer) "fullname" "main") }}
+{{ include "bedag-lib.template.container" (dict  "container" $.Values.extraContainer "context" $) }}
 ```
 
 ## Job Template
@@ -899,7 +819,7 @@ Implements the following templates:
 ### Usage
 
 ```
-{{ $cleanup := fromYaml (include "bedag-lib.template.job" (set (set $ "job" $.Values.cleanup) "name" "cleanup-job") }}
+{{ $cleanup := fromYaml (include "bedag-lib.template.job" (dict  "name" "cleanup-job" "job" $.Values.cleanup "context" $)) }}
 ```
 
 ## Pod Template
@@ -929,7 +849,7 @@ Implements the following templates:
 ### Usage
 
 ```
-{{ $body := fromYaml (include "bedag-lib.template.pod" (set (set $ "pod" $.Values.sidecar) "fullname" "sidecar") }}
+{{ $body := fromYaml (include "bedag-lib.template.pod" (dict  "name" "body" "pod" $.Values.statefulset "context" $)) }}
 ```
 
 ## PVC Template
@@ -957,7 +877,7 @@ Does not implement any templates.
 ### Usage
 
 ```
-{{- include "bedag-lib.template.persistentvolumeclaim" (set (set $ "pvc" $.Values.persistence) "fullname" "home") | nindent 10 }}
+{{ include "bedag-lib.template.pvc" (dict "pvc" $.Values.persistence "context" $) | nindent 2 }}
 ```
 
 # Examples
@@ -972,7 +892,7 @@ Here's a simple example using a single bundle. You need a single file the implem
 
 **templates/bundle.yaml**
 ```
-{{- include "bedag-lib.manifest.bundle" $ | nindent 0 }}
+{{- include "bedag-lib.manifest.bundle" (dict "bundle" (fromYaml (include "chart.bundle" $)) "context" $) | nindent 0 }}
 
 {{- define "chart.bundle" }}
 common:
